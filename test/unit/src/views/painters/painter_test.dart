@@ -1,8 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:flutter/material.dart';
-import 'package:flutter_painter/src/controllers/drawables/background/background_drawables.dart';
-import 'package:flutter_painter/src/controllers/drawables/grouped_drawable.dart';
-import 'package:flutter_painter/src/views/painters/painter.dart';
+import 'package:flutter_painter_v2/src/controllers/drawables/background/background_drawables.dart';
+import 'package:flutter_painter_v2/src/controllers/drawables/grouped_drawable.dart';
+import 'package:flutter_painter_v2/src/views/painters/painter.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -45,9 +45,7 @@ void main() {
         instance.paint(canvas, size);
 
         verify(() => canvas.save());
-        final storage = Matrix4.identity()
-            .scaled(size.width / scale.width, size.height / scale.height)
-            .storage;
+        final storage = Matrix4.identity().scaled(size.width / scale.width, size.height / scale.height).storage;
         verify(() => canvas.transform(storage));
         verify(() => canvas.saveLayer(any(), any()));
         expect(verify(() => canvas.restore()).callCount, 2);
@@ -186,8 +184,7 @@ class _ArrangeBuilder {
   // ignore: not_used
   final Canvas _canvas;
 
-  void withCanvas() =>
-      when(() => _canvas.save()).thenAnswer((final _) async => {});
+  void withCanvas() => when(() => _canvas.save()).thenAnswer((final _) async => {});
 
   void withFakeCallbacks() {
     registerFallbackValue(FakePaint());
